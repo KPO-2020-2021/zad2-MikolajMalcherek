@@ -1,30 +1,7 @@
 #include "LZespolona.hh"
+using namespace std;
+#include <iostream>
 #include <cmath>
-
-#define MIN_DIFF 0.00001
-
-/*!
- * Realizuje porównanie dwoch liczb zespolonych.
- * Argumenty:
- *    Skl1 - pierwsza porównywana liczba zespolona,
- *    Skl2 - druga porównywana liczba zespolona.
- * Zwraca:
- *    True dla równych liczb zespolonych.
- */
-
-bool  operator == (LZespolona  Skl1,  LZespolona  Skl2){
-  if ((Skl1.re == Skl2.re) && (Skl1.im == Skl2.im))
-    return true;
-  else
-    return false;
-  //alternatywnie, dla MIN_DIFF i wyników od użytkownika
-  /*
-  if abs(Skl1.re - Skl2.re) <= MIN_DIFF && abs(Skl1.im - Skl2.im) <= MIN_DIFF
-    return true;
-  else
-    return false;
-  */
-}
 
 /*!
  * Realizuje dodanie dwoch liczb zespolonych.
@@ -34,27 +11,161 @@ bool  operator == (LZespolona  Skl1,  LZespolona  Skl2){
  * Zwraca:
  *    Sume dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2){
+LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
+{
   LZespolona  Wynik;
 
   Wynik.re = Skl1.re + Skl2.re;
   Wynik.im = Skl1.im + Skl2.im;
   return Wynik;
+
 }
 
 
+
+
 /*!
- * Realizuje dzielenie liczby zespolonej przez skakar.
+ * Realizuje odejmowanie dwoch liczb zespolonych.
  * Argumenty:
- *    Skl1 - dzielona liczba zespolona,
- *    Skl2 - skalar-dzielnik.
+ *    Skl1 - pierwszy skladnik odejmowania,
+ *    Skl2 - drugi skladnik odejmowania.
  * Zwraca:
- *    Wynik dzielenia dwoch skladnikow przekazanych jako parametry.
+ *    Roznice dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator / (LZespolona  Skl1,  double  Skl2){
+LZespolona operator - (LZespolona Skl1, LZespolona Skl2)
+{
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re / Skl2;
-  Wynik.im = Skl1.im / Skl2;
+  Wynik.re = Skl1.re - Skl2.re;
+  Wynik.im = Skl1.im - Skl2.im;
   return Wynik;
+}
+
+
+
+/*!
+ * Realizuje mnozenie dwoch liczb zespolonych.
+ * Argumenty:
+ *    Skl1 - pierwszy skladnik mnozenia,
+ *    Skl2 - drugi skladnik mnozenia.
+ * Zwraca:
+ *    Iloczyn dwoch skladnikow przekazanych jako parametry.
+ */
+LZespolona operator * (LZespolona Skl1, LZespolona Skl2)
+{
+  LZespolona  Wynik;
+
+  Wynik.re = Skl1.re*Skl2.re - Skl1.im*Skl2.im;
+  Wynik.im = Skl1.re*Skl2.im + Skl1.im*Skl2.re;
+  return Wynik;
+}
+
+
+
+/*!
+ * Realizuje dzielenie dwoch liczb zespolonych.
+ * Argumenty:
+ *    Skl1 - pierwszy skladnik dzielenia,
+ *    Skl2 - drugi skladnik dzielenia.
+ * Zwraca:
+ *    Iloraz dwoch skladnikow przekazanych jako parametry.
+ */
+LZespolona operator / (LZespolona Skl1, LZespolona Skl2)
+{
+  LZespolona  Wynik;
+  double mianownik;
+  Wynik = Skl1*sprzezenie(Skl2);
+  mianownik = pow(modul(Skl2),2);
+  Wynik = Wynik/mianownik;
+  return Wynik;
+}
+
+
+
+//Funckja pomocna do funkcji powyzszej aby podzielic liczbe typu LZespolona przez liczbe typu double
+//Definiujemy operator dzielenia dla zmiennych o typach LZespolona i double
+LZespolona operator / (LZespolona Skl1, double mianownik)
+{
+  LZespolona  Wynik;
+  Wynik.re = Skl1.re/mianownik;
+  Wynik.im = Skl1.im/mianownik;
+  return Wynik;
+}
+
+//Sprzezenie liczby zespolonej
+LZespolona sprzezenie(LZespolona urojona)
+{
+  urojona.im = urojona.im * (-1);
+  return urojona;
+}
+
+
+//modul liczby zespolonej
+double modul(LZespolona liczba)
+{
+  double modul;
+  modul = sqrt((liczba.im*liczba.im) + (liczba.re*liczba.re));
+  return modul;
+}
+
+
+//Funckja wyswietlajaca liczbe zespolona
+void Wyswietl(LZespolona wynik)
+{
+        string znak;
+    if(wynik.im<0)
+    {
+        znak = "";
+    }
+    else znak = '+';
+
+    cout << "(" << wynik.re << znak << wynik.im << "i)" << endl; 
+}
+
+
+
+
+//Funckja sluzaca wypisaniu liczby zespolonej
+ostream & operator << (ostream &wyj, const LZespolona LZesp)
+{
+  wyj << " (" << LZesp.re << showpos << LZesp.im << "i)" << noshowpos;
+  return wyj;
+}
+
+
+
+//Funkcja sluzaca wczytaniu liczby zespolonej
+istream & operator >> (istream &wej, LZespolona& LZesp)
+{
+  char znak;
+  wej >> znak;
+  if(znak!='(')
+  {
+    wej.setstate(ios::badbit);
+  }
+  wej >> LZesp.re;
+  wej >> LZesp.im;
+  wej >> znak;
+    if(znak!='i')
+  {
+    wej.setstate(ios::badbit);
+  }
+  wej >> znak;
+      if(znak!=')')
+  {
+    wej.setstate(ios::badbit);
+  }
+  return wej;
+}
+
+
+
+//Funkcja przyrownania dwoch liczb zespolonych
+bool operator == (LZespolona Skl1 , LZespolona Skl2)
+{
+  if(abs(Skl1.re- Skl2.re)<=0.01 && abs(Skl1.im- Skl2.im)<=0.01)
+  {
+    return true;
+  }
+  return false;
 }
