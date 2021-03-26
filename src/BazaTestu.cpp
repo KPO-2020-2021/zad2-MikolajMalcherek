@@ -77,14 +77,17 @@ void UstawTest( BazaTestu *wskBazaTestu, WyrazenieZesp *wskTabTestu, unsigned in
  *              zainicjalizowany,
  *       false - w przypadku przeciwnym.
  */
-bool InicjalizujTest( BazaTestu  *wskBazaTestu, const char *sNazwaTestu )
+bool InicjalizujTest( fstream &plik, const char *sNazwaTestu )
 {
   if (!strcmp(sNazwaTestu,"latwy")) {
-    UstawTest(wskBazaTestu,TestLatwy,sizeof(TestLatwy)/sizeof(WyrazenieZesp));
+    plik.open("latwy.dat",ios::in);
+
+   // UstawTest(wskBazaTestu,TestLatwy,sizeof(TestLatwy)/sizeof(WyrazenieZesp));
     return true;
   }
   else  if (!strcmp(sNazwaTestu,"trudny")) {
-    UstawTest(wskBazaTestu,TestTrudny,sizeof(TestTrudny)/sizeof(WyrazenieZesp));
+     plik.open("trudny.dat",ios::in);
+  //  UstawTest(wskBazaTestu,TestTrudny,sizeof(TestTrudny)/sizeof(WyrazenieZesp));
     return true;
   }
   /*
@@ -116,11 +119,26 @@ bool InicjalizujTest( BazaTestu  *wskBazaTestu, const char *sNazwaTestu )
  *              przypisane nowe wyrazenie zespolone z bazy,
  *       false - w przypadku przeciwnym.
  */
-bool PobierzNastpnePytanie( BazaTestu  *wskBazaTestu, WyrazenieZesp *wskWyrazenie )
+bool PobierzNastpnePytanie( fstream &plik, WyrazenieZesp *wskWyrazenie )
 {
-  if (wskBazaTestu->IndeksPytania >= wskBazaTestu->IloscPytan) return false;
-
-  *wskWyrazenie = wskBazaTestu->wskTabTestu[wskBazaTestu->IndeksPytania];
-  ++wskBazaTestu->IndeksPytania;
+ WyrazenieZesp zesp;
+ char tekst;
+  while(1)
+  {
+     if (plik.eof()) return false;
+    
+   plik>>zesp; 
+   
+   if(plik.good())
+   {
+     break;
+   }
+   
+ plik.clear();
+    plik.ignore(1024, '\n');
+      cerr<<"Napotkano bledne wyrazenie. Zostalo ono pominiete."<<endl;
+  }
+*wskWyrazenie=zesp;
+   
   return true;
 }

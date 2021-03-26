@@ -2,6 +2,8 @@
 using namespace std;
 #include <iostream>
 #include <cmath>
+#include <iomanip>
+
 
 /*!
  * Realizuje dodanie dwoch liczb zespolonych.
@@ -87,6 +89,10 @@ LZespolona operator / (LZespolona Skl1, LZespolona Skl2)
 LZespolona operator / (LZespolona Skl1, double mianownik)
 {
   LZespolona  Wynik;
+  if(mianownik==0)
+  {
+    throw "nie dzieli sie przez zero";
+  }
   Wynik.re = Skl1.re/mianownik;
   Wynik.im = Skl1.im/mianownik;
   return Wynik;
@@ -128,7 +134,7 @@ void Wyswietl(LZespolona wynik)
 //Funckja sluzaca wypisaniu liczby zespolonej
 ostream & operator << (ostream &wyj, const LZespolona LZesp)
 {
-  wyj << " (" << LZesp.re << showpos << LZesp.im << "i)" << noshowpos;
+  wyj << "(" << fixed << setprecision(2) << LZesp.re << showpos << fixed << setprecision(2) << LZesp.im << "i)" << noshowpos;
   return wyj;
 }
 
@@ -139,18 +145,23 @@ istream & operator >> (istream &wej, LZespolona& LZesp)
 {
   char znak;
   wej >> znak;
+ 
   if(znak!='(')
   {
     wej.setstate(ios::badbit);
   }
   wej >> LZesp.re;
+  
   wej >> LZesp.im;
+  
   wej >> znak;
+  
     if(znak!='i')
   {
     wej.setstate(ios::badbit);
   }
   wej >> znak;
+   
       if(znak!=')')
   {
     wej.setstate(ios::badbit);

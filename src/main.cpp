@@ -16,8 +16,8 @@ int main(int argc, char **argv)
   }
 
   BazaTestu BazaT = {nullptr, 0, 0};
-
-  if (InicjalizujTest(&BazaT, argv[1]) == false)
+fstream plik;
+  if (InicjalizujTest(plik, argv[1]) == false)
   {
     cerr << " Inicjalizacja testu nie powiodla sie." << endl;
     return 1;
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 Statystyka stat;
 //Inicjujemy statystyke uzytkownika, czyli funkcje liczenia uzyskanych punktow
 Inicjuj(stat);
-  while (PobierzNastpnePytanie(&BazaT, &WyrZ_PytanieTestowe))
+  while (PobierzNastpnePytanie(plik, &WyrZ_PytanieTestowe))
   {
     cout << "Podaj wynik operacji " << WyrZ_PytanieTestowe <<": "<< endl;
 
@@ -71,7 +71,7 @@ Inicjuj(stat);
     }
     stat.Wszystkie++;
   }
-
+plik.close();
 //Wyswietla wynik testu
 Wyswietl(stat);
   cout << endl;
