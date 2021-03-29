@@ -38,3 +38,73 @@ TEST_CASE("LZespolona - wczytywanie standard"){
 
     CHECK( "(25.00+13.10i)" == out.str() );
 }
+
+
+TEST_CASE("LZespolona - wczytywanie standard"){
+    LZespolona x;
+
+    std::istringstream in("(25.00+13.10i)");
+    in >> x;
+    std::ostringstream out;
+    out << x;
+
+    CHECK( "(25.00+13.10i)" == out.str() );
+}
+
+
+TEST_CASE("test LZespolona /="){
+    LZespolona x, y, z, g;
+
+    x.re = 1;
+    x.im = 1;
+
+    y.re = 1;
+    y.im = -3;
+
+
+    x/=y;
+
+    g=x;
+
+
+    z.re = -0.2;
+    z.im = 0.4;
+    
+    CHECK(g == z);
+}
+
+
+TEST_CASE("test LZespolona +="){
+    LZespolona x, y, z, g;
+
+    x.re = 1;
+    x.im = 1;
+
+    y.re = 1;
+    y.im = -3;
+
+    x+=y;
+    g=x;
+
+
+    z.re = 2;
+    z.im = -2;
+    
+    CHECK(g == z);
+}
+
+/*
+TEST_CASE("test arg liczby zespolonej"){
+    LZespolona x;
+    double sigma,wynik;
+    x.re = 1;
+    x.im = 1; 
+
+    sigma=(double)arg(x);
+
+    
+    wynik = 0.78539816;
+    
+    CHECK(sigma == wynik);
+}
+*/

@@ -5,10 +5,16 @@
 
 using namespace std;
 
+
+
+//BAZA TESTU JEST JUZ NIEPOTRZEBNA, PONIEWAZ PROGRAM CZYTA DANE Z PLIKU
+
+
 /*
  * Tablica, ktora jest widoczna tylko w tym module.
  * Zawiera ona tresc latwego testu.
  */
+/*
 static WyrazenieZesp  TestLatwy[] =
   { {{2,1}, Op_Dodaj, {1,2}},
     {{1,0}, Op_Odejmij, {0,1}},
@@ -20,6 +26,8 @@ static WyrazenieZesp  TestLatwy[] =
  * Analogicznie zdefiniuj test "trudne"
  *
  */
+
+/*
 static WyrazenieZesp  TestTrudny[] =
   { {{5,1}, Op_Dodaj, {3,-1}},
     {{2,0}, Op_Odejmij, {5,1}},
@@ -27,8 +35,7 @@ static WyrazenieZesp  TestTrudny[] =
     {{6,8}, Op_Dziel, {9,-1}},
     {{45,83}, Op_Dziel, {29,-1}},
   };
-
-
+*/
 
 
 /*

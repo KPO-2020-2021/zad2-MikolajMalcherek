@@ -132,6 +132,7 @@ void Wyswietl(LZespolona wynik)
 
 
 //Funckja sluzaca wypisaniu liczby zespolonej
+
 ostream & operator << (ostream &wyj, const LZespolona LZesp)
 {
   wyj << "(" << fixed << setprecision(2) << LZesp.re << showpos << fixed << setprecision(2) << LZesp.im << "i)" << noshowpos;
@@ -180,3 +181,85 @@ bool operator == (LZespolona Skl1 , LZespolona Skl2)
   }
   return false;
 }
+
+
+
+LZespolona operator += (LZespolona &Arg1, LZespolona const &Arg2)
+{
+  Arg1 = Arg1 + Arg2;
+  return Arg1;
+}
+
+
+/*
+LZespolona operator += (LZespolona &Arg1, LZespolona const &Arg2)
+{
+
+  Arg1.im = Arg1.im + Arg2.im;
+  Arg1.re = Arg1.re + Arg2.re;
+  return Arg1;
+}
+*/
+
+
+
+
+
+//Dla ulamkow program obliczy wynik z pelna dokładnoscia , jedynie przy wypisaniu odpowiedzi zaokragli do dwoch miejsc po przecinku
+LZespolona operator /= (LZespolona &Arg1, LZespolona const &Arg2)
+{
+Arg1=Arg1/Arg2;
+return Arg1;
+}
+
+
+
+
+
+void arg(LZespolona z){
+  double r = modul(z);
+  double sigma;
+if(z.re!=0)
+{
+  if(z.re>0)
+  {
+    sigma=atan2(z.im,z.re);
+  }
+  if(z.re<0)
+  {
+    sigma=atan2(z.im,z.re)+3.14;
+  }
+}
+  if(z.re=0){
+    if(z.im>0)
+    {
+      sigma = 3.14/2;
+    }
+
+    if(z.im<0){
+      sigma = -3.14/2;
+    }
+
+    else{
+      cout << "Nie można określić argumentu-czesc rzeczywista i urojona sa rowne 0!" << endl;
+    }
+
+  }
+  return;
+
+}
+
+
+
+
+/*
+LZespolona operator /= (LZespolona &Arg1, LZespolona const &Arg2)
+{
+  LZespolona  Wynik;
+  double mianownik;
+  Arg1 = Arg1*sprzezenie(Arg2);
+  mianownik = pow(modul(Arg2),2);
+  Arg1 = Arg1/mianownik;
+  return Arg1;
+}
+*/

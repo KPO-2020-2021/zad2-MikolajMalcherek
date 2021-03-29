@@ -68,8 +68,31 @@ Inicjuj(stat);
      cout << "zle wynik to: ";
      stat.Ble++;
     Wyswietl(wynik); 
+
     }
     stat.Wszystkie++;
+        cout << "wynik po += to: ";
+    LZespolona a;
+    LZespolona b;
+    LZespolona c;
+
+    a.im = WyrZ_PytanieTestowe.Arg1.im;
+    a.re =  WyrZ_PytanieTestowe.Arg1.re;
+
+    c=a;
+
+    b.im =  WyrZ_PytanieTestowe.Arg2.im;
+    b.re = WyrZ_PytanieTestowe.Arg2.re;
+
+    a += b;
+
+    cout << a.re << "    " << a.im << endl;
+    c /=b;
+    cout << "wynik po /= to: ";
+    cout << c.re << "    " << c.im << endl;
+
+
+
   }
 plik.close();
 //Wyswietla wynik testu

@@ -33,8 +33,10 @@ LZespolona operator / (LZespolona Skl1, double mianownik);
 double modul(LZespolona liczba);
 LZespolona sprzezenie(LZespolona urojona);
 
-
-
+//Zadanie na projekt do 29.03.2021r.
+LZespolona operator += (LZespolona &Arg1, LZespolona const &Arg2);
+LZespolona operator /= (LZespolona &Arg1, LZespolona const &Arg2);
+void arg(LZespolona z);
 
 ostream & operator << (ostream &wyj, const LZespolona LZesp);
 istream & operator >> (istream &wej, LZespolona& LZesp);
