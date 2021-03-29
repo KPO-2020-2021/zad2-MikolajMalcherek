@@ -227,7 +227,7 @@ if(z.re!=0)
   }
   if(z.re<0)
   {
-    sigma=atan2(z.im,z.re)+3.14;
+    sigma=atan2(z.im,z.re);
   }
 }
   if(z.re=0){
