@@ -93,18 +93,19 @@ TEST_CASE("test LZespolona +="){
     CHECK(g == z);
 }
 
-/*
+
+
+
+
 TEST_CASE("test arg liczby zespolonej"){
     LZespolona x;
     double sigma,wynik;
-    x.re = 1;
-    x.im = 1; 
+    x.re = -3;
+    x.im = 4; 
 
-    sigma=(double)arg(x);
+    sigma=arg(x);
 
-    
-    wynik = 0.78539816;
+    wynik = 2.2142974355881810060341309203570740801400952908028652933530784148;
     
     CHECK(sigma == wynik);
 }
-*/

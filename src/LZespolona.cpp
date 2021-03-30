@@ -216,7 +216,7 @@ return Arg1;
 
 
 
-void arg(LZespolona z){
+double arg(LZespolona z){
   double r = modul(z);
   double sigma;
 if(z.re!=0)
@@ -245,7 +245,7 @@ if(z.re!=0)
     }
 
   }
-  return;
+  return 1;
 
 }
 
